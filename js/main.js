@@ -23,7 +23,7 @@ controles.forEach ( (controle) =>
             botao.target.parentNode: irá analisar na árvore do html qual dos botões foi clicado através do pai do elemento
         */
         manipulaDados(botao.target.dataset.controle, botao.target.parentNode);
-        atualizaEstatisticas(botao.target.dataset.peca);
+        atualizaEstatisticas(botao.target.dataset.peca, botao.target.dataset.controle);
     })
 })
 
@@ -79,10 +79,12 @@ const pecas = {
     }
 }
 
-function atualizaEstatisticas(peca) {
-    console.log(pecas[peca]);
-
+function atualizaEstatisticas(peca, operacao) {
     estatisticas.forEach( (estatistica) => {
-        estatistica.textContent = parseInt(estatistica.textContent) + pecas[peca][estatistica.dataset.estatistica];
+        if(operacao === "+") {
+            estatistica.textContent = parseInt(estatistica.textContent) + pecas[peca][estatistica.dataset.estatistica];
+        } else {
+            estatistica.textContent = parseInt(estatistica.textContent) - pecas[peca][estatistica.dataset.estatistica];
+        }
     })
 }
